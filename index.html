@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>デリバリー収益管理</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="tab-nav">
+            <button class="tab-link active" data-tab="top">トップ</button>
+            <button class="tab-link" data-tab="register">収益登録</button>
+            <button class="tab-link" data-tab="dashboard">ダッシュボード</button>
+        </nav>
+
+        <!-- トップ画面タブ -->
+        <div id="top" class="tab-content active">
+            <h1>本日の稼働記録</h1>
+            <div class="timer-controls">
+                <button id="startButton">稼働スタート</button>
+                <button id="pauseButton" disabled>休憩</button>
+                <button id="resumeButton" disabled>再開</button>
+            </div>
+            <div id="timer">00:00:00</div>
+            
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h2>本日の合計収益</h2>
+                    <p><span id="totalSales">0</span> 円</p>
+                </div>
+                <div class="summary-card">
+                    <h2>本日の配達件数</h2>
+                    <p><span id="totalDeliveries">0</span> 件</p>
+                </div>
+            </div>
+
+            <div class="sales-breakdown">
+                <h2>サービス別収益</h2>
+                <ul id="salesList">
+                    <li>UberEats: 0 円</li>
+                    <li>出前館: 0 円</li>
+                    <li>Wolt: 0 円</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 収益登録タブ -->
+        <div id="register" class="tab-content">
+            <h1>収益登録</h1>
+            <form id="deliveryForm">
+                <div class="form-group">
+                    <label for="deliveryDateTime">配達日時</label>
+                    <div class="input-group">
+                        <input type="datetime-local" id="deliveryDateTime" required>
+                        <button type="button" id="setCurrentTimeButton">現在日時を入力</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="deliveryService">配達会社</label>
+                    <select id="deliveryService" required>
+                        <option value="UberEats">UberEats</option>
+                        <option value="出前館">出前館</option>
+                        <option value="Wolt">Wolt</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="deliveryAmount">金額</label>
+                    <input type="number" id="deliveryAmount" placeholder="金額を入力" required>
+                </div>
+                <button type="submit" class="submit-button">登録</button>
+            </form>
+        </div>
+
+        <!-- ダッシュボードタブ -->
+        <div id="dashboard" class="tab-content">
+            <h1>ダッシュボード</h1>
+            <div class="dashboard-settings">
+                 <h3>表示設定</h3>
+                 <div class="settings-card">
+                    <div class="form-group">
+                        <label for="period">期間</label>
+                        <select id="period">
+                            <option value="daily">日毎</option>
+                            <option value="weekly">週ごと</option>
+                            <option value="monthly">月ごと</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="company-filter">配達会社</label>
+                        <select id="company-filter">
+                            <option value="all">すべて</option>
+                            <option value="UberEats">UberEats</option>
+                            <option value="出前館">出前館</option>
+                            <option value="Wolt">Wolt</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="view-type">表示形式</label>
+                        <select id="view-type">
+                            <option value="graph">グラフ</option>
+                            <option value="table">テーブル</option>
+                        </select>
+                    </div>
+                 </div>
+            </div>
+            <div class="dashboard-view">
+                <!-- ここにグラフやテーブルが表示される -->
+                <p>ここに分析結果が表示されます。</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
