@@ -20,6 +20,7 @@ allprojects {
 }
 
 subprojects {
+    apply(plugin = "java")
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "org.jetbrains.kotlin.plugin.spring")
     apply(plugin = "io.spring.dependency-management")
@@ -27,9 +28,9 @@ subprojects {
     apply(plugin = "io.gitlab.arturbosch.detekt")
 
     dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-reflect")
-        implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
-        testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        add("implementation", "org.jetbrains.kotlin:kotlin-reflect")
+        add("implementation", "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
+        add("testImplementation", "org.springframework.boot:spring-boot-starter-test") {
             exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
         }
     }
@@ -43,5 +44,9 @@ subprojects {
 
     tasks.withType<Test> {
         useJUnitPlatform()
+    }
+
+    configure<JavaPluginExtension> {
+        sourceCompatibility = JavaVersion.VERSION_17
     }
 }
