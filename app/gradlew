@@ -1,0 +1,143 @@
+#!/usr/bin/env sh
+
+#
+# Copyright 2015 the original author or authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+#
+# @author: Andres Almiray
+#
+
+#
+# Gradle start up script.
+#
+
+#
+# Environment variable conventions:
+#
+#   JAVA_HOME         - location of a JDK installation.
+#   JAVA_OPTS         - command-line options to pass to the JVM.
+#   GRADLE_OPTS       - command-line options to pass to Gradle.
+#
+
+#
+# Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+#
+DEFAULT_JVM_OPTS="-Xmx64m -Xms64m"
+
+#
+# Determines the location of this script.
+#
+# This script is located in the project root.
+#
+APP_HOME=$(cd "$(dirname "$0")" && pwd)
+
+#
+# A simple way to verify that a command exists.
+#
+# @param $1 the command to verify, required.
+#
+command_exists () {
+    command -v "$1" >/dev/null 2>&1
+}
+
+#
+# Resolve the JAVA_HOME variable.
+#
+# If JAVA_HOME is not set, a heuristic is used to attempt to find a locally installed JDK.
+#
+resolve_java () {
+    if [ -n "$JAVA_HOME" ] && [ -x "$JAVA_HOME/bin/java" ]; then
+        return
+    fi
+
+    if command_exists java; then
+        return
+    fi
+
+    cat >&2 <<EOF
+ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+
+Please set the JAVA_HOME variable in your environment to match the location of your Java installation.
+EOF
+    exit 1
+}
+resolve_java
+
+#
+# Collect all arguments for the launch.
+#
+# Differentiates between JVM options, Gradle options, and tasks.
+#
+# @param $@ all arguments
+#
+collect_args () {
+    for arg in "$@"; do
+        case "$arg" in
+        -D*)
+            GRADLE_OPTS="$GRADLE_OPTS $arg"
+            ;;
+        -*)
+            # The script should not attempt to parse Gradle command-line options.
+            # It passes them through to the Gradle launcher.
+            GRADLE_OPTS="$GRADLE_OPTS $arg"
+            ;;
+        *)
+            # Assume arguments not starting with a dash are tasks.
+            APP_ARGS="$APP_ARGS $arg"
+            ;;
+        esac
+    done
+}
+collect_args "$@"
+
+#
+# Slices the given path and prints the element at the given index.
+#
+# @param $1 the path to slice.
+# @param $2 the index of the element to print.
+#
+slice_path () {
+    echo "$1" | cut -d/ -f"$2"
+}
+
+#
+# Finds the location of the gradle-wrapper.jar.
+#
+find_gradle_wrapper_jar () {
+    local wrapper_jar_path
+    wrapper_jar_path="$APP_HOME/gradle/wrapper/gradle-wrapper.jar"
+    if [ -f "$wrapper_jar_path" ]; then
+        echo "$wrapper_jar_path"
+        return
+    fi
+
+    cat >&2 <<EOF
+ERROR: Could not find gradle-wrapper.jar at the expected location.
+Expected location: $wrapper_jar_path
+EOF
+    exit 1
+}
+GRADLE_WRAPPER_JAR=$(find_gradle_wrapper_jar)
+
+#
+# Execute Gradle.
+#
+exec "$JAVA_HOME/bin/java" \
+    "$DEFAULT_JVM_OPTS" \
+    "$JAVA_OPTS" \
+    "$GRADLE_OPTS" \
+    -jar "$GRADLE_WRAPPER_JAR" \
+    "$APP_ARGS"
