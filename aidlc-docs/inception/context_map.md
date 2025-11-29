@@ -4,21 +4,20 @@
 
 ```mermaid
 graph TD
-    subgraph " "
-        U1["Unit 1: サービス設定"]
-        U2["Unit 2: 日々の稼働記録"]
-        U3["Unit 3: キャッシュフロー管理"]
-        U4["Unit 4: 分析とレポート"]
-    end
+    U1["Unit 1:<br>サービス設定"]
+    U2["Unit 2:<br>日々の稼働記録"]
+    U3["Unit 3:<br>キャッシュフロー管理"]
+    U4["Unit 4:<br>分析とレポート"]
 
-    U1 -- "支払いサイクル情報を提供" --> U3
-    U2 -- "売上・稼働データを提供" --> U3
-    U2 -- "売上・稼働・経費データを提供" --> U4
+    U1 -- "支払いサイクル情報" --> U3
+    U2 -- "売上・稼働データ" --> U3
+    U2 -- "売上・稼働・経費データ" --> U4
 
-    style U1 fill:#f9f,stroke:#333,stroke-width:2px
-    style U2 fill:#f9f,stroke:#333,stroke-width:2px
-    style U3 fill:#ccf,stroke:#333,stroke-width:2px
-    style U4 fill:#ccf,stroke:#333,stroke-width:2px
+    %% Styling for better visibility
+    style U1 fill:#FFF0F0,stroke:#A00,stroke-width:2px,color:#333
+    style U2 fill:#FFF0F0,stroke:#A00,stroke-width:2px,color:#333
+    style U3 fill:#F0F0FF,stroke:#00A,stroke-width:2px,color:#333
+    style U4 fill:#F0F0FF,stroke:#00A,stroke-width:2px,color:#333
 ```
 
 ## 関係性の説明
